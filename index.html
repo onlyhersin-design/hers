@@ -3,17 +3,44 @@
 <head>
   <title>HERS</title>
   <style>
-    body { font-family: Arial; margin: 0; background: #a3262a; padding-top: 70px; overflow-x:hidden; }
+    body { font-family: Arial; margin: 0; background: #a3262a; padding-top: 110px; overflow-x:hidden; }
 
     .header {
-      position: fixed; top:0; left:0; width:100%;
-      display:flex; justify-content:center; align-items:center; position:relative;
-      padding:12px 40px; background:#000; z-index:1000;
+      position: fixed;
+      top:0;
+      left:0;
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:22px 20px;
+      background:#000;
+      z-index:1000;
     }
 
-    .logo-text { color:#fff; font-size:22px; letter-spacing:2px; position:absolute; left:40px; }
+    .logo-text { color:#fff; font-size:22px; letter-spacing:2px; position:absolute; left:40px; font-family: Arial, sans-serif; }
 
-    .socials { display:flex; gap:12px; }
+    .brand-font {
+      font-family: Arial, sans-serif;
+      letter-spacing:1.5px;
+    }
+
+    .price {
+      transition:0.3s;
+    }
+
+    .price:hover {
+      text-shadow:0 0 8px rgba(0,0,0,0.6), 0 0 12px rgba(0,0,0,0.4);
+      transform:scale(1.05);
+    }
+
+    .socials {
+      display:flex;
+      gap:12px;
+      align-items:center;
+      margin-left:auto;
+      margin-right:20px;
+    }
 
     .socials a {
       margin-left:10px; display:inline-flex; align-items:center; justify-content:center;
@@ -33,40 +60,33 @@
     .search-bar { flex:1; background:#000; border-radius:30px; padding:8px 15px; }
     .search-bar input { width:100%; background:transparent;border:none;color:#fff;outline:none; }
 
-    .sort-btn { width:40px;height:40px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; }
+    .sort-btn { width:40px;height:40px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold; }
+
+    .sort-btn:hover { background:#222; transform:scale(1.1); }
+
+    .sort-btn:hover { background:#eee; transform:scale(1.1); }
 
     .sort-btn:hover { background:#111; transform:scale(1.1); }
 
     .grid {
-      display:flex;
-      flex-direction:column;
-      gap:20px;
-      padding:20px;
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap:14px; /* space between cards to show background */
+      padding:14px; /* outer breathing space */
     }
 
     .card {
       background:#111;
       color:#fff;
-      border-radius:20px;
+      border-radius:16px;
       overflow:hidden;
       cursor:pointer;
-      transition:0.4s;
-      height:85vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      position:relative;
+      transition:0.3s;
+      height:calc(50vh - 28px);
+      border:1px solid rgba(255,255,255,0.08);
     }
 
-    .card::after {
-      content:'';
-      position:absolute;
-      bottom:0;
-      left:0;
-      width:100%;
-      height:40%;
-      background:linear-gradient(to top, rgba(0,0,0,0.8), transparent);
-    }
+    
 
     .card:hover {
       transform: scale(1.02);
@@ -84,7 +104,7 @@
       display:block;
     }
 
-    .product-page { text-align:center;color:#fff;padding:20px; }
+    .product-page { text-align:center;color:#fff;padding:20px; padding-bottom:100px; }
 
     .carousel { width:100%; max-width:300px; margin:auto; overflow:hidden; position:relative; }
     .carousel-track { display:flex; transition:0.4s; }
@@ -97,7 +117,38 @@
     .dot { width:8px;height:8px;border-radius:50%;background:#777; }
     .dot.active { background:#fff; }
 
-    .buy-btn { background:#000;color:#fff;padding:10px 20px;margin:10px;border:none;cursor:pointer; transition:0.3s; }
+    .buy-btn { background:#000;color:#fff;padding:16px 22px;margin:6px;border:none;cursor:pointer; transition:0.3s; border-radius:8px; flex:1; font-size:16px; font-weight:600; }
+
+    .buy-btn:hover { background:#111; transform:scale(1.05); box-shadow:0 10px 25px rgba(0,0,0,0.4); }
+
+    .sticky-buy {
+      position:fixed;
+      bottom:0;
+      left:0;
+      width:100%;
+      display:flex;
+      gap:10px;
+      padding:10px;
+      background:#a3262a;
+      z-index:1000;
+    }
+
+    .zoom-overlay {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background:rgba(0,0,0,0.9);
+      display:none;
+      justify-content:center;
+      align-items:center;
+      z-index:2000;
+    }
+
+    .zoom-overlay img {
+      width:90%;
+      max-height:90%;
+      object-fit:contain;
+    }
 
     .buy-btn:hover { background:#111; transform:scale(1.05); box-shadow:0 10px 25px rgba(0,0,0,0.4); }
   </style>
@@ -174,45 +225,69 @@ if(id!==null){
 
   var images=[p.img,img("#555"),img("#777"),img("#999"),img("#bbb")];
 
-  var html="<div class='product-page'>"+
-  "<button onclick='back()'>← Back</button>"+
-  "<h2>"+p.name+"</h2>"+
-  "<div class='carousel'>"+
-  "<button class='arrow left' onclick='prev()'>&lt;</button>"+
-  "<div class='carousel-track' id='track'>";
+  var html=`
+  <div class='product-page'>
+
+    <div class='carousel' id='carousel' style="height:calc(100vh - 140px); max-width:100%;">
+      <button class='arrow left' onclick='prev()'>&lt;</button>
+      <div class='carousel-track' id='track'>`;
 
   for(var i=0;i<images.length;i++){
-    html+="<img src='"+images[i]+"'>";
+    html+=`<img class='zoomable' src='${images[i]}' style="width:100vw;height:calc(100vh - 140px);object-fit:cover;">`;
   }
 
-  html+="</div>"+
-  "<button class='arrow right' onclick='next()'>&gt;</button>"+
-  "</div>"+
-  "<div class='dots' id='dots'></div>"+
-  "<p><b>True Value:</b> "+p.price+"</p>"+
-  "<button class='buy-btn' onclick='buyWA()'>Buy WhatsApp</button>"+
-  "<button class='buy-btn' onclick='buyIG()'>Buy Instagram</button>"+
-  "</div>";
+  html+=`</div>
+      <button class='arrow right' onclick='next()'>&gt;</button>
+    </div>
+
+    <div style="padding:15px; text-align:left;">
+      <h2>${p.name}</h2>
+      <p style="font-size:18px; margin-top:8px;"><b>True Value:</b> ${p.price}</p>
+    </div>
+
+    <div class='sticky-buy'>
+      <button class='buy-btn' onclick='buyWA()'>Buy WhatsApp</button>
+      <button class='buy-btn' onclick='buyIG()'>Buy Instagram</button>
+    </div>
+
+  </div>
+
+  <div id='zoomOverlay' class='zoom-overlay' onclick='closeZoom()'>
+    <img id='zoomImg'>
+  </div>`;
 
   app.innerHTML=html;
 
-  var dots=document.getElementById('dots');
-  for(var d=0;d<images.length;d++){
-    var dot=document.createElement('div');
-    dot.className='dot'+(d==0?' active':'');
-    dots.appendChild(dot);
-  }
-
   var index=0;
+  var startX=0;
 
   window.next=function(){ if(index<images.length-1){ index++;update(); } }
   window.prev=function(){ if(index>0){ index--;update(); } }
 
   function update(){
-    document.getElementById('track').style.transform='translateX(-'+(index*260)+'px)';
-    var d=document.querySelectorAll('.dot');
-    d.forEach(x=>x.classList.remove('active'));
-    d[index].classList.add('active');
+    document.getElementById('track').style.transform='translateX(-'+(index*window.innerWidth)+'px)';
+  }
+
+  // swipe gesture
+  var carousel=document.getElementById('carousel');
+  carousel.addEventListener('touchstart',function(e){ startX=e.touches[0].clientX; });
+  carousel.addEventListener('touchend',function(e){
+    var endX=e.changedTouches[0].clientX;
+    if(startX-endX>50){ next(); }
+    else if(endX-startX>50){ prev(); }
+  });
+
+  // zoom on click
+  var imgs=document.querySelectorAll('.zoomable');
+  imgs.forEach(function(imgEl){
+    imgEl.addEventListener('click',function(){
+      document.getElementById('zoomImg').src=this.src;
+      document.getElementById('zoomOverlay').style.display='flex';
+    });
+  });
+
+  window.closeZoom=function(){
+    document.getElementById('zoomOverlay').style.display='none';
   }
 
 }else{
@@ -222,13 +297,16 @@ if(id!==null){
 function render(){
   var html="<div class='grid'>";
   for(var i=0;i<products.length;i++){
-    html += `<div class='card' onclick='openP(${i})'>
-      <img src='${products[i].img}'>
-      <div style='position:absolute; bottom:20px; left:20px; right:20px; z-index:2;'>
-        <div style='font-size:18px; font-weight:600;'>${products[i].name}</div>
-        <div style='opacity:0.8; font-size:14px;'>True Value: ${products[i].price}</div>
-      </div>
-    </div>`;
+    html += `
+      <div>
+        <div class='card' onclick='openP(${i})'>
+          <img src='${products[i].img}'>
+        </div>
+        <div style='text-align:center; margin-top:6px;' class='brand-font'>
+          <div style='font-size:14px; font-weight:600; color:#000;'>${products[i].name}</div>
+          <div class='price' style='opacity:0.9; font-size:13px; color:#000;'>True Value: ${products[i].price}</div>
+        </div>
+      </div>`;
   }
   html += "</div>";
   app.innerHTML = html;
