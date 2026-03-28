@@ -18,7 +18,7 @@
       z-index:1000;
     }
 
-    .logo-text { color:#fff; font-size:22px; letter-spacing:2px; position:absolute; left:40px; font-family: Arial, sans-serif; }
+    .logo-text { color:#fff; font-size:28px; letter-spacing:2px; position:absolute; left:40px; font-family: Arial, sans-serif; }
 
     .brand-font {
       font-family: Arial, sans-serif;
@@ -44,7 +44,8 @@
 
     .socials a {
       margin-left:10px; display:inline-flex; align-items:center; justify-content:center;
-      width:32px;height:32px;border-radius:50%;background:#111;
+      width:44px;height:44px;border-radius:50%;background:#111;
+      transition:0.3s;border-radius:50%;background:#111;
       transition:0.3s;
     }
 
@@ -60,7 +61,7 @@
     .search-bar { flex:1; background:#000; border-radius:30px; padding:8px 15px; }
     .search-bar input { width:100%; background:transparent;border:none;color:#fff;outline:none; }
 
-    .sort-btn { width:40px;height:40px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold; }
+    .sort-btn { width:55px;height:55px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold; }
 
     .sort-btn:hover { background:#222; transform:scale(1.1); }
 
@@ -71,8 +72,8 @@
     .grid {
       display:grid;
       grid-template-columns: repeat(2, 1fr);
-      gap:14px; /* space between cards to show background */
-      padding:14px; /* outer breathing space */
+      gap:20px; /* more background visible */
+      padding:20px; /* more outer space */
     }
 
     .card {
@@ -82,7 +83,8 @@
       overflow:hidden;
       cursor:pointer;
       transition:0.3s;
-      height:calc(50vh - 28px);
+      height:calc(40vh - 40px); /* smaller and more square-like */ /* reduced size */
+      border:1px solid rgba(255,255,255,0.08);
       border:1px solid rgba(255,255,255,0.08);
     }
 
@@ -303,8 +305,8 @@ function render(){
           <img src='${products[i].img}'>
         </div>
         <div style='text-align:center; margin-top:6px;' class='brand-font'>
-          <div style='font-size:14px; font-weight:600; color:#000;'>${products[i].name}</div>
-          <div class='price' style='opacity:0.9; font-size:13px; color:#000;'>True Value: ${products[i].price}</div>
+          <div style='font-size:20px; font-weight:600; color:#000;'>${products[i].name}</div>
+          <div class='price' style='opacity:0.9; font-size:18px; color:#000;'>True Value: ${products[i].price}</div>
         </div>
       </div>`;
   }
@@ -347,4 +349,3 @@ window.onload=type;
 
 </body>
 </html>
-
