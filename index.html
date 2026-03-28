@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HERS</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 0;
+            background: #a3262a;
+            padding-top: 70px;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 12px 40px;
+            background: #000;
+            z-index: 1000;
+        }
+        
+        .logo-text {
+            color: #fff;
+            font-size: 22px;
+            letter-spacing: 2px;
+            position: absolute;
+            left: 40px;
+        }
+        
+        .socials {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .socials a {
+            margin-left: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #111;
+            transition: 0.3s;
+        }
+        
+        .socials a:hover {
+            background: #222;
+            transform: scale(1.1);
+        }
+        
+        .brand-story {
+            text-align: center;
+            color: #fff;
+            margin-top: 80px;
+            font-style: italic;
+        }
+        
+        .controls {
+            padding: 10px 40px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .search-bar {
+            flex: 1;
+            background: #000;
+            border-radius: 30px;
+            padding: 8px 15px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: #fff;
+            outline: none;
+        }
+        
+        .sort-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #000;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .sort-btn:hover {
+            background: #111;
+            transform: scale(1.1);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+        
+        .card {
+            background: #111;
+            color: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+        
+        .product-page {
+            text-align: center;
+            color: #fff;
+            padding: 20px;
+        }
+        
+        .carousel {
+            width: 260px;
+            margin: auto;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: 0.4s;
+        }
+        
+        .carousel img {
+            width: 260px;
+            height: 380px;
+            flex-shrink: 0;
+        }
+        
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #000;
+            color: #fff;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+        }
+        
+        .left {
+            left: -10px;
+        }
+        
+        .right {
+            right: -10px;
+        }
+        
+        .dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+            gap: 5px;
+        }
+        
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #777;
+        }
+        
+        .dot.active {
+            background: #fff;
+        }
+        
+        .buy-btn {
+            background: #000;
+            color: #fff;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .buy-btn:hover {
+            background: #111;
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="logo-text">HERS</div>
+        <div class="socials">
+            <a href="https://wa.me/919059828206" target="_blank" title="WhatsApp">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffffff">
+        <path d="M12 2a10 10 0 0 0-8 15l-2 5 5-1.5A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4-1l-.3-.2-2.7.7.7-2.6-.2-.3A8 8 0 1 1 12 20zm4-5c-.2-.1-1.2-.6-1.4-.7s-.3-.1-.5.1-.6.7-.7.8-.2.2-.4.1a6 6 0 0 1-1.8-1.1 6.5 6.5 0 0 1-1.2-1.5c-.1-.2 0-.3.1-.4l.3-.3c.1-.1.2-.2.3-.4.1-.2 0-.3 0-.4s-.5-1.2-.7-1.6c-.2-.4-.4-.3-.5-.3h-.4c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2 1 .4 1.3.5.5.2 1 .2 1.4.1.4-.1 1.1-.4 1.3-.8.2-.4.2-.8.1-.9 0-.1-.2-.2-.3-.3z"/>
+      </svg>
+            </a>
+            <a href="https://instagram.com/onlyhers.in" target="_blank" title="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+        <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm5 5.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 0 1 12 7.5zm6-1.3a1.2 1.2 0 1 1-1.2-1.2A1.2 1.2 0 0 1 18 6.2zM12 9a3 3 0 1 0 3 3 3 3 0 0 0-3-3z"/>
+      </svg>
+            </a>
+            <a href="mailto:onlyhers.in@gmail.com" target="_blank" title="Email">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff">
+        <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/>
+      </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="brand-story">
+        <p id="story"></p>
+    </div>
+
+    <div class="controls">
+        <div class="search-bar"><input onkeyup="search(this.value)" placeholder="Search..."></div>
+        <div class="sort-btn" onclick="sort('low')">⬇️</div>
+        <div class="sort-btn" onclick="sort('high')">⬆️</div>
+    </div>
+
+    <div id="app"></div>
+
+    <script>
+        var selectedSize = "M";
+        var selectedProductName = "";
+        var selectedProductPrice = "";
+
+        function img(color) {
+            // Offline SVG image generator
+            var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='400'>" +
+                "<rect width='100%' height='100%' fill='#f2f2f2'/>" +
+                "<circle cx='150' cy='80' r='40' fill='#d9a066'/>" +
+                "<rect x='90' y='140' width='120' height='200' rx='20' fill='" + color + "'/>" +
+                "</svg>";
+
+            return "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svg)));
+        }
+
+        var original = [{
+            name: "Red Dress",
+            price: "₹1499",
+            img: img("red")
+        }, {
+            name: "Blue Dress",
+            price: "₹999",
+            img: img("blue")
+        }, {
+            name: "Black Dress",
+            price: "₹1999",
+            img: img("black")
+        }, {
+            name: "Green Dress",
+            price: "₹1299",
+            img: img("green")
+        }, {
+            name: "Pink Dress",
+            price: "₹1599",
+            img: img("pink")
+        }, {
+            name: "Purple Dress",
+            price: "₹1799",
+            img: img("purple")
+        }];
+
+        var products = original.slice();
+        var app = document.getElementById("app");
+        var id = new URLSearchParams(location.search).get("id");
+
+        if (id !== null) {
+            document.querySelector('.brand-story').style.display = 'none';
+            document.querySelector('.controls').style.display = 'none';
+
+            var p = products[id];
+            selectedProductName = p.name;
+            selectedProductPrice = p.price;
+
+            var images = [p.img, img("#555"), img("#777"), img("#999"), img("#bbb")];
+
+            var html = "<div class='product-page'>" +
+                "<button onclick='back()'>← Back</button>" +
+                "<h2>" + p.name + "</h2>" +
+                "<div class='carousel'>" +
+                "<button class='arrow left' onclick='prev()'>&lt;</button>" +
+                "<div class='carousel-track' id='track'>";
+
+            for (var i = 0; i < images.length; i++) {
+                html += "<img src='" + images[i] + "'>";
+            }
+
+            html += "</div>" +
+                "<button class='arrow right' onclick='next()'>&gt;</button>" +
+                "</div>" +
+                "<div class='dots' id='dots'></div>" +
+                "<p><b>True Value:</b> " + p.price + "</p>" +
+                "<button class='buy-btn' onclick='buyWA()'>Buy WhatsApp</button>" +
+                "<button class='buy-btn' onclick='buyIG()'>Buy Instagram</button>" +
+                "</div>";
+
+            app.innerHTML = html;
+
+            var dots = document.getElementById('dots');
+            for (var d = 0; d < images.length; d++) {
+                var dot = document.createElement('div');
+                dot.className = 'dot' + (d == 0 ? ' active' : '');
+                dots.appendChild(dot);
+            }
+
+            var index = 0;
+
+            window.next = function() {
+                if (index < images.length - 1) {
+                    index++;
+                    update();
+                }
+            }
+            window.prev = function() {
+                if (index > 0) {
+                    index--;
+                    update();
+                }
+            }
+
+            function update() {
+                document.getElementById('track').style.transform = 'translateX(-' + (index * 260) + 'px)';
+                var d = document.querySelectorAll('.dot');
+                d.forEach(x => x.classList.remove('active'));
+                d[index].classList.add('active');
+            }
+
+        } else {
+            render();
+        }
+
+        function render() {
+            var html = "<div class='grid'>";
+            for (var i = 0; i < products.length; i++) {
+                html += "<div class='card' onclick='openP(" + i + ")'>" +
+                    "<img src='" + products[i].img + "'>" +
+                    "<p style='text-align:center'>" + products[i].name + "<br><span style='opacity:0.7'>True Value: " + products[i].price + "</span></p></div>";
+            }
+            html += "</div>";
+            app.innerHTML = html;
+        }
+
+        function openP(i) {
+            location.search = '?id=' + i;
+        }
+
+        function back() {
+            location.search = '';
+        }
+
+        function sort(t) {
+            products.sort((a, b) => t == 'low' ? price(a) - price(b) : price(b) - price(a));
+            render();
+        }
+
+        function search(q) {
+            q = q.toLowerCase();
+            products = original.filter(p => p.name.toLowerCase().includes(q));
+            render();
+        }
+
+        function price(p) {
+            return parseInt(p.price.replace('₹', ''));
+        }
+
+        function buyWA() {
+            var msg = encodeURIComponent("Product:" + selectedProductName + " Size:" + selectedSize + " Price:" + selectedProductPrice);
+            window.open("https://wa.me/919059828206?text=" + msg);
+        }
+
+        function buyIG() {
+            var msg = "Product:" + selectedProductName + " Size:" + selectedSize + " Price:" + selectedProductPrice;
+            navigator.clipboard.writeText(msg);
+            window.open("https://instagram.com/onlyhers.in");
+        }
+
+        // story
+        var text = "HERS is for the bold, confident women.";
+        var i = 0;
+
+        function type() {
+            if (i < text.length) {
+                document.getElementById('story').innerHTML += text[i++];
+                setTimeout(type, 30);
+            }
+        }
+        window.onload = type;
+    </script>
+
+</body>
+
+</html>
