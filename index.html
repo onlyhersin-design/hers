@@ -3,7 +3,7 @@
 <head>
   <title>HERS</title>
   <style>
-    body { font-family: Arial; margin: 0; background: #a3262a; padding-top: 110px; overflow-x:hidden; }
+    body { font-family: Arial; margin: 0; background: #ffffff; padding-top: 110px; overflow-x:hidden; padding-top: 110px; overflow-x:hidden; }
 
     .header {
       position: fixed;
@@ -54,14 +54,14 @@
       transform:scale(1.1);
     }
 
-    .brand-story { text-align:center;color:#fff;margin-top:80px;font-style:italic; }
+    .brand-story { text-align:center;color:#000;margin-top:80px;font-style:italic; }
 
     .controls { padding:10px 40px; display:flex; gap:10px; }
 
-    .search-bar { flex:1; background:#000; border-radius:30px; padding:8px 15px; }
-    .search-bar input { width:100%; background:transparent;border:none;color:#fff;outline:none; }
+    .search-bar { flex:1; background:#eee; border-radius:30px; padding:8px 15px; }
+    .search-bar input { width:100%; background:transparent;border:none;color:#000;outline:none; }
 
-    .sort-btn { width:55px;height:55px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold; }
+    .sort-btn { width:55px;height:55px;border-radius:50%;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold;display:flex;align-items:center;justify-content:center;cursor:pointer; transition:0.3s; font-size:16px; font-weight:bold; }
 
     .sort-btn:hover { background:#222; transform:scale(1.1); }
 
@@ -72,7 +72,7 @@
     .grid {
       display:grid;
       grid-template-columns: repeat(2, 1fr);
-      gap:20px; /* more background visible */
+      gap:24px; /* more background visible */
       padding:20px; /* more outer space */
     }
 
@@ -83,7 +83,8 @@
       overflow:hidden;
       cursor:pointer;
       transition:0.3s;
-      height:calc(40vh - 40px); /* smaller and more square-like */ /* reduced size */
+      height:calc(35vh - 40px);
+      border:2px solid rgba(0,0,0,0.15); /* smaller and more square-like */ /* reduced size */
       border:1px solid rgba(255,255,255,0.08);
       border:1px solid rgba(255,255,255,0.08);
     }
@@ -106,7 +107,7 @@
       display:block;
     }
 
-    .product-page { text-align:center;color:#fff;padding:20px; padding-bottom:100px; }
+    .product-page { text-align:center;color:#000;padding:20px; padding-bottom:100px; }
 
     .carousel { width:100%; max-width:300px; margin:auto; overflow:hidden; position:relative; }
     .carousel-track { display:flex; transition:0.4s; }
@@ -131,7 +132,7 @@
       display:flex;
       gap:10px;
       padding:10px;
-      background:#a3262a;
+      background:#fff;
       z-index:1000;
     }
 
@@ -153,7 +154,149 @@
     }
 
     .buy-btn:hover { background:#111; transform:scale(1.05); box-shadow:0 10px 25px rgba(0,0,0,0.4); }
-  </style>
+  
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .logo-text { font-size:24px; left:20px; }
+
+  .socials a { width:40px; height:40px; }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap:16px;
+    padding:16px;
+  }
+
+  .card {
+    height:calc(42vh - 32px);
+  }
+
+  .brand-font div:first-child { font-size:18px; }
+  .brand-font .price { font-size:16px; }
+}
+
+@media (max-width: 480px) {
+  .header { padding:18px 12px; }
+
+  .logo-text { font-size:20px; }
+
+  .socials a { width:36px; height:36px; }
+
+  .grid {
+    gap:14px;
+    padding:14px;
+  }
+
+  .card {
+    height:calc(40vh - 28px);
+  }
+
+  .brand-font div:first-child { font-size:16px; }
+  .brand-font .price { font-size:14px; }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width:1000px;
+    margin:auto;
+  }
+
+  .card {
+    height:300px;
+  }
+}
+
+
+
+/* VIDEO CAROUSEL */
+.video-section{
+  margin-top:30px;
+  padding:10px 0 30px 0;
+}
+.video-title{
+  color:#000;
+  font-size:18px;
+  text-align:center;
+  margin-bottom:10px;
+  font-weight:600;
+}
+.video-row{
+  display:flex;
+  overflow-x:auto;
+  gap:16px;
+  padding:0 20px;
+  scroll-snap-type:x mandatory;
+}
+.video-row::-webkit-scrollbar{display:none;}
+
+.video-card{
+  min-width:160px;
+  height:280px;
+  border-radius:16px;
+  overflow:hidden;
+  background:#000;
+  flex-shrink:0;
+  cursor:pointer;
+  position:relative;
+  scroll-snap-align:center;
+  transition:0.4s;
+  filter:blur(3px) brightness(0.7);
+  transform:scale(0.9);
+}
+
+.video-card.active{
+  filter:blur(0px) brightness(1);
+  transform:scale(1.1);
+  z-index:2;
+}
+
+.video-card video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.video-card::after{
+  content:'▶';
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:#fff;
+  font-size:24px;
+  opacity:0.8;
+}
+
+
+/* FOOTER */
+.footer{
+  background:#000;
+  color:#fff;
+  padding:30px 20px;
+  margin-top:40px;
+}
+.footer h3{
+  margin-bottom:10px;
+  font-size:16px;
+}
+.footer p,.footer a{
+  font-size:14px;
+  opacity:0.8;
+  color:#fff;
+  text-decoration:none;
+  display:block;
+  margin:4px 0;
+}
+.footer a:hover{opacity:1;}
+.footer-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+</style>
 </head>
 <body>
 
@@ -190,6 +333,12 @@
 
 <script>
 var selectedSize="M";
+function selectSize(s,el){
+  selectedSize=s;
+  document.querySelectorAll('[onclick^="selectSize"]').forEach(e=>e.style.background='');
+  el.style.background='#000';
+  el.style.color='#fff';
+}
 var selectedProductName="";
 var selectedProductPrice="";
 
@@ -230,6 +379,8 @@ if(id!==null){
   var html=`
   <div class='product-page'>
 
+    <div style="text-align:center;font-style:italic;margin-bottom:10px;" id="productStory"></div>
+
     <div class='carousel' id='carousel' style="height:calc(100vh - 140px); max-width:100%;">
       <button class='arrow left' onclick='prev()'>&lt;</button>
       <div class='carousel-track' id='track'>`;
@@ -245,6 +396,21 @@ if(id!==null){
     <div style="padding:15px; text-align:left;">
       <h2>${p.name}</h2>
       <p style="font-size:18px; margin-top:8px;"><b>True Value:</b> ${p.price}</p>
+
+      <!-- SIZE SELECTION -->
+      <div style="margin-top:15px;">
+        <div style="margin-bottom:6px; font-weight:600;">Select Size</div>
+        <div style="display:flex; gap:10px;">
+          ${['S','M','L','XL'].map(s=>`<div onclick="selectSize('${s}',this)" style="padding:8px 14px;border:1px solid #000;border-radius:6px;cursor:pointer;">${s}</div>`).join('')}
+        </div>
+      </div>
+
+      <!-- ADDRESS -->
+      <div style="margin-top:15px;">
+        <div style="margin-bottom:6px; font-weight:600;">Delivery Address</div>
+        <textarea id="address" placeholder="Enter your address" style="width:100%;padding:10px;border-radius:6px;border:none;outline:none;"></textarea>
+      </div>
+
     </div>
 
     <div class='sticky-buy'>
@@ -259,6 +425,17 @@ if(id!==null){
   </div>`;
 
   app.innerHTML=html;
+
+  // product story typing
+  var storyText="Designed for confidence, made to stand out.";
+  var si=0;
+  function typeStory(){
+    if(si<storyText.length){
+      document.getElementById('productStory').innerHTML+=storyText[si++];
+      setTimeout(typeStory,25);
+    }
+  }
+  typeStory();
 
   var index=0;
   var startX=0;
@@ -311,7 +488,93 @@ function render(){
       </div>`;
   }
   html += "</div>";
+  html += `
+
+<div class='video-section'>
+  <div class='video-title'>Explore Looks</div>
+  <div class='video-row'>
+    ${products.map((p,i)=>`
+      <div class='video-card' onclick='openP(${i})'>
+        <video muted loop autoplay playsinline>
+          <source src='' type='video/mp4'>
+        </video>
+      </div>
+    `).join('')}
+  </div>
+</div>
+`;
+
+  html += `
+
+<div class="footer">
+  <div class="footer-grid">
+    <div>
+      <h3>HERS</h3>
+      <p>Bold. Confident. You.</p>
+    </div>
+    <div>
+      <h3>Quick Links</h3>
+      <a href="#">Home</a>
+      <a href="#">Shop</a>
+      <a href="#">Contact</a>
+    </div>
+    <div>
+      <h3>Support</h3>
+      <a href="#">Shipping</a>
+      <a href="#">Returns</a>
+      <a href="#">Help</a>
+    </div>
+    <div>
+      <h3>Contact</h3>
+      <p>onlyhers.in@gmail.com</p>
+      <p>+91 9059828206</p>
+    </div>
+  </div>
+</div>
+`;
+
   app.innerHTML = html;
+
+  // PRO REELS BEHAVIOR
+  const row = document.querySelector('.video-row');
+  if(row){
+    const cards = row.querySelectorAll('.video-card');
+
+    function updateCenter(){
+      let center = row.scrollLeft + row.offsetWidth/2;
+      let closest = null;
+      let minDist = Infinity;
+
+      cards.forEach(card=>{
+        let rect = card.offsetLeft + card.offsetWidth/2;
+        let dist = Math.abs(center - rect);
+
+        if(dist < minDist){
+          minDist = dist;
+          closest = card;
+        }
+      });
+
+      cards.forEach(card=>{
+        const vid = card.querySelector('video');
+        card.classList.remove('active');
+        vid.pause();
+      });
+
+      if(closest){
+        closest.classList.add('active');
+        const v = closest.querySelector('video');
+        v.play().catch(()=>{});
+      }
+    }
+
+    row.addEventListener('scroll', ()=>{
+      requestAnimationFrame(updateCenter);
+    });
+
+    // initial trigger
+    setTimeout(updateCenter,300);
+  }
 }
 
 function openP(i){ location.search='?id='+i; }
@@ -331,12 +594,14 @@ function search(q){
 function price(p){ return parseInt(p.price.replace('₹','')); }
 
 function buyWA(){
-  var msg=encodeURIComponent("Product:"+selectedProductName+" Size:"+selectedSize+" Price:"+selectedProductPrice);
+  var address=document.getElementById('address')?.value || '';
+  var msg=encodeURIComponent("Product:"+selectedProductName+" Size:"+selectedSize+" Price:"+selectedProductPrice+" Address:"+address);
   window.open("https://wa.me/919059828206?text="+msg);
 }
 
 function buyIG(){
-  var msg="Product:"+selectedProductName+" Size:"+selectedSize+" Price:"+selectedProductPrice;
+  var address=document.getElementById('address')?.value || '';
+  var msg="Product:"+selectedProductName+" Size:"+selectedSize+" Price:"+selectedProductPrice+" Address:"+address;
   navigator.clipboard.writeText(msg);
   window.open("https://instagram.com/onlyhers.in");
 }
@@ -349,3 +614,4 @@ window.onload=type;
 
 </body>
 </html>
+
